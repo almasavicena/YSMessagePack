@@ -122,7 +122,7 @@ public extension NSData {
     #endif
 
     var castToBool: Bool? {
-        return Bool.init(self.castToInt)
+        return Bool(self.castToInt)
     }
     
     func mapUnpackedArray<T>(handler: (NSData) throws -> T) -> [T]{
