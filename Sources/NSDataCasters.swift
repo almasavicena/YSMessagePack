@@ -227,12 +227,12 @@ public extension NSData {
         return NSKeyedUnarchiver.unarchiveObject(with: Data(bytes: self.byteArray)) as? NSDictionary
     }
     
-    #endif
-    
-    
     func castToStringArray(withEncoding encoding: String.Encoding = .ascii) -> [String?] {
         return self.castToArray!.map({($0).castToString(withEncoding: encoding)})
     }
+    
+    #endif
+    
     #else
     /**
      Cast Data into String/NSString according to its byte_array value
