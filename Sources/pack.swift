@@ -237,11 +237,11 @@ extension StringLiteralType : Packable {
     
     func pack(withEncoding encoding: String.Encoding) throws -> NSData?
     {
-        #if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
+//        #if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
         let data = self.data(using: encoding)
-        #else
-        let data = self.data(using: encoding.raw)
-        #endif
+//        #else
+//        let data = self.data(using: encoding.raw)
+//        #endif
         if let data = data {
             #if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
             var mirror  = [UInt8](repeatElement(0, count: data.count))
