@@ -81,6 +81,8 @@ public extension NSData {
         return String(data: Data(bytes: self.byteArray), encoding: encoding)
     }
     
+    #if !os(Linux) && !os(FreeBSD)
+    
     ///Cast data into NSArray according to its byte_array value
     var castToArray: [NSData]? {
         let array = NSKeyedUnarchiver.unarchiveObject(with: Data(bytes: self.byteArray)) as? NSArray
@@ -88,13 +90,16 @@ public extension NSData {
     }
     
     
-    func castToStringArray(withEncoding encoding: String.Encoding = .ascii) -> [String?] {
-        return self.castToArray!.map({($0).castToString(withEncoding: encoding)})
-    }
-    
     ///Cast data into NSDictionary according to its byte_array value
     var castToDictionary: NSDictionary? {
         return NSKeyedUnarchiver.unarchiveObject(with: Data(bytes: self.byteArray)) as? NSDictionary
+    }
+    
+    #endif
+    
+    
+    func castToStringArray(withEncoding encoding: String.Encoding = .ascii) -> [String?] {
+        return self.castToArray!.map({($0).castToString(withEncoding: encoding)})
     }
     #else
     /**
@@ -109,6 +114,8 @@ public extension NSData {
         return self.castToArray!.map({($0).castToString(withEncoding: encoding)})
     }
     
+    #if !os(Linux) && !os(FreeBSD)
+    
     ///Cast data into NSArray according to its byte_array value
     var castToArray: [NSData]? {
         let array = NSKeyedUnarchiver.unarchiveObjectWithData(self) as? NSArray
@@ -119,10 +126,17 @@ public extension NSData {
     var castToDictionary: NSDictionary? {
         return NSKeyedUnarchiver.unarchiveObjectWithData(self) as? NSDictionary
     }
+    
+    #endif
+    
     #endif
 
     var castToBool: Bool? {
+        #if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
         return Bool(self.castToInt)
+        #else
+        return Bool(NSNumber(integerLiteral: self.castToInt))
+        #endif
     }
     
     func mapUnpackedArray<T>(handler: (NSData) throws -> T) -> [T]{
