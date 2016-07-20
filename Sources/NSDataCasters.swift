@@ -271,9 +271,11 @@ public extension NSData {
         #endif
     }
     
+    #if !os(Linux) && !os(FreeBSD)
     func mapUnpackedArray<T>(handler: (NSData) throws -> T) -> [T]{
         return try! self.castToArray!.map(handler)
     }
+    #endif
     
     public var castToUInt64: UInt64 {
         var int_value: UInt64 = 0

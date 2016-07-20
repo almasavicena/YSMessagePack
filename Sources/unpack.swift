@@ -402,7 +402,11 @@ public extension NSData {
             
             shift = try type.getDataPrefixSize()
             var temp: ByteArray     = ByteArray(count: dataSize, repeatedValue: 0)
+            #if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
             self.getBytes(&temp, range: NSRange(Range<Int>(i+shift..<i+shift+dataSize)))
+            #else
+            self.getBytes(&temp, range: NSRange(i+shift..<i+shift+dataSize))
+            #endif
             switch type {
             //Since message pack is using big edian, we have to flip the bytes to make it useful
             case .uInt8, .uInt16, .uInt32, .uInt64,
