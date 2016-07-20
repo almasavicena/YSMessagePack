@@ -213,7 +213,7 @@ public extension NSData {
         return String(data: Data(bytes: self.byteArray), encoding: encoding)
     }
     
-    #if !os(Linux) || !os(FreeBSD)
+    #if !os(Linux) && !os(FreeBSD)
     
     ///Cast data into NSArray according to its byte_array value
     var castToArray: [NSData]? {
