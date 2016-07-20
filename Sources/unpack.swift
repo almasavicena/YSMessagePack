@@ -237,7 +237,11 @@ public extension NSData {
                 if returnRemainingBytes {
                     var remainingBytes = ByteArray(count: (byte_array.count - i), repeatedValue: 0)
                     //self.getBytes(&remainingBytes, range: NSRange.init(Range<Int>(start: i, end: byte_array.count)))
-                    self.getBytes(&remainingBytes, range: NSRange.init(Range<Int>(i..<byte_array.count)))
+                    #if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
+                    self.getBytes(&remainingBytes, range: NSRange(Range<Int>(i..<byte_array.count)))
+                    #else
+                    self.getBytes(&remainingBytes, range: NSRange(i..<byte_array.count))
+                    #endif
                     packedObjects.append(remainingBytes.dataValue())
                     dataTypes.append(.remainingBytes)
                 }
