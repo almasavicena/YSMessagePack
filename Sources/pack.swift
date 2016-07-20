@@ -247,7 +247,7 @@ extension StringLiteralType : Packable {
             var mirror  = [UInt8](repeatElement(0, count: data.count))
             data.copyBytes(to: &mirror, count: data.count)
             #else
-            var mirror  = (data!.byteArrayValue())
+            var mirror  = (data.byteArrayValue())
             #endif
             
             var prefix: UInt8!

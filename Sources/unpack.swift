@@ -58,6 +58,7 @@ public extension NSData {
 
     }
     
+    #if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
     #if swift(>=3)
     
     /**
@@ -160,6 +161,7 @@ public extension NSData {
         
         return (data_buffer == nil) ? nil : NSKeyedArchiver.archivedDataWithRootObject(dict! as NSDictionary)
     }
+    #endif
     #endif
     
     /**
@@ -319,46 +321,72 @@ public extension NSData {
                 
             //array
             case 0b10010000...0b10011111:
+                #if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
                 let count                  = _fixArrayDataCount
                 var length: Int            = 0
                 let data                   = NSData.parsePackedArray(self, index: i + 1, count: count, length: &length)
                 try checkIfEnd(data, shift: length + 1)
                 dataTypes.append(.fixarray)
+                #else
+                break
+                #endif
                 
                 
             case 0xdc:
+                #if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
                 let count                   = _16bitMarkupDataSize
                 var length: Int             = 0
                 let data                    = NSData.parsePackedArray(self, index: i + 1 + 2, count: count, length: &length)
                 try checkIfEnd(data, shift: length + 1 + 2)
                 dataTypes.append(.array16)
+                #else
+                break
+                #endif
                 
             case 0xdd:
+                #if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
                 let count                   = _32bitMarkupDataSize
                 var length: Int             = 0
                 let data                    = NSData.parsePackedArray(self, index: i + 1 + 4, count: count, length: &length)
                 try checkIfEnd(data, shift: length + 1 + 4)
                 dataTypes.append(.array32)
+                #else
+                break
+                #endif
+                
             //map
             case 0b10000000...0b10001111:
+                #if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
                 let count                   = _fixMapCount
                 var length:Int              = 0
                 let data                    = NSData.parsePackedMap(self, index: i + 1, count: count, length: &length)
                 try checkIfEnd(data, shift: length + 1)
                 dataTypes.append(.fixmap)
+                #else
+                    break
+                #endif
                 
             case 0xde:
+                #if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
                 let count                   = _16bitMarkupDataSize
                 var length: Int             = 0
                 let data                    = NSData.parsePackedMap(self, index: i + 1 + 2, count: count, length: &length)
                 try checkIfEnd(data, shift: length + 1 + 2)
                 dataTypes.append(.map16)
+                #else
+                break
+                #endif
+                
             case 0xdf:
+                #if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
                 let count                   = _32bitMarkupDataSize
                 var length: Int             = 0
                 let data                    = NSData.parsePackedMap(self, index: i + 1 + 4, count: count, length: &length)
                 try checkIfEnd(data, shift: length + 1 + 4)
                 dataTypes.append(.map32)
+                #else
+                break
+                #endif
             default: throw UnpackingError.unknownDataTypeUndifinedPrefix
             }
             
