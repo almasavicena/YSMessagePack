@@ -233,15 +233,22 @@ extension Bool : Packable {
 //MARK: String
 extension StringLiteralType : Packable {
     
-    #if swift(>=3) && ( os(OSX) || os(iOS) || os(watchOS) || os(tvOS) )
+    #if swift(>=3)
     
     func pack(withEncoding encoding: String.Encoding) throws -> NSData?
     {
+        #if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
         let data = self.data(using: encoding)
-        
+        #else
+        let data = self.data(using: encoding.raw)
+        #endif
         if let data = data {
+            #if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
             var mirror  = [UInt8](repeatElement(0, count: data.count))
             data.copyBytes(to: &mirror, count: data.count)
+            #else
+            var mirror  = (data!.byteArrayValue())
+            #endif
             
             var prefix: UInt8!
             var lengthByte: [UInt8] = []
@@ -267,7 +274,13 @@ extension StringLiteralType : Packable {
                 default: throw PackingError.dataEncodingError
                 }
             #endif
+            
             mirror.insert(prefix, at: 0)
+            
+            for (index, lengthByte) in lengthByte.enumerated() {
+                mirror.insert(lengthByte, at: 1 + index)
+            }
+            
             return NSData(bytes: mirror, length: mirror.count)
         } else {
             throw PackingError.dataEncodingError
