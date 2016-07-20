@@ -233,7 +233,7 @@ extension Bool : Packable {
 //MARK: String
 extension StringLiteralType : Packable {
     
-    #if swift(>=3)
+    #if swift(>=3) && ( os(OSX) || os(iOS) || os(watchOS) || os(tvOS) )
     
     func pack(withEncoding encoding: String.Encoding) throws -> NSData?
     {
