@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import LinuxFoundation
 
 public extension NSData {
     

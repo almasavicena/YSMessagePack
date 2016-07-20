@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import LinuxFoundation
 
 #if swift(>=3)
     public extension Array {

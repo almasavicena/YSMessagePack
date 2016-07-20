@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import LinuxFoundation
 
 public enum MsgPackTypes {
     case Bool, Uint, Int, Float, String, Array, Dictionary, Data, Custom, Nil

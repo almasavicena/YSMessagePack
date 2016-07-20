@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import LinuxFoundation
 
 private func parsePackedArray(_ bytes: ByteArray, atIndex index: Int, count: Int) -> size_t {
     var bytes = bytes
