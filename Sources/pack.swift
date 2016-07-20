@@ -379,7 +379,7 @@ public extension SignedIntegerType {
         if (value < 0 && value >= -1 * 0b0001_1111) {
             var dummy = abs(value)
             dummy = dummy | 0b1110_0000
-            return NSData(bytes: &dummy, length: sizeof(Int8))
+            return NSData(bytes: &dummy, length: sizeof(Int8.self))
         }
         
         let data = NSData(bytes: &value, length: param.size)

@@ -42,9 +42,9 @@ private func parsePackedMap(_ bytes: ByteArray, atIndex index: Int, count: Int) 
             var shift: size_t!, dataSize: size_t!
             var type: DataTypes = .fixstr
             
-            let _fixStrDataMarkupSize    =  size_t(byte_array[i] ^ 0b101_00000)/sizeof(UInt8)
-            let _fixArrayDataCount       =  size_t(byte_array[i] ^ 0b1001_0000)/sizeof(UInt8)
-            let _fixMapCount             =  size_t(byte_array[i] ^ 0b1000_0000)/sizeof(UInt8)
+            let _fixStrDataMarkupSize    =  size_t(byte_array[i] ^ 0b101_00000)/sizeof(UInt8.self)
+            let _fixArrayDataCount       =  size_t(byte_array[i] ^ 0b1001_0000)/sizeof(UInt8.self)
+            let _fixMapCount             =  size_t(byte_array[i] ^ 0b1000_0000)/sizeof(UInt8.self)
             
             
             let _8bitMarkupDataSize      =  byte_array.count - (i+1) >= 1 ?
@@ -182,9 +182,9 @@ private func parsePackedMap(_ bytes: ByteArray, atIndex index: Int, count: Int) 
             var shift: size_t!, dataSize: size_t!
             var type: DataTypes = .fixstr
             
-            let _fixStrDataMarkupSize    =  size_t(byte_array[i] ^ 0b101_00000)/sizeof(UInt8)
-            let _fixArrayDataCount       =  size_t(byte_array[i] ^ 0b1001_0000)/sizeof(UInt8)
-            let _fixMapCount             =  size_t(byte_array[i] ^ 0b1000_0000)/sizeof(UInt8)
+            let _fixStrDataMarkupSize    =  size_t(byte_array[i] ^ 0b101_00000)/sizeof(UInt8.self)
+            let _fixArrayDataCount       =  size_t(byte_array[i] ^ 0b1001_0000)/sizeof(UInt8.self)
+            let _fixMapCount             =  size_t(byte_array[i] ^ 0b1000_0000)/sizeof(UInt8.self)
             
             
             let _8bitMarkupDataSize      =  byte_array.count - (i+1) >= 1 ?

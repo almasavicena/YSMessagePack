@@ -214,9 +214,9 @@ public extension NSData {
             var continue_           = false
             var controlFlowState: control_flow = .None
             
-            let _fixStrDataMarkupSize    =  Int(byte_array[i] ^ 0b101_00000)/sizeof(UInt8)
-            let _fixArrayDataCount       =  Int(byte_array[i] ^ 0b1001_0000)/sizeof(UInt8)
-            let _fixMapCount             =  Int(byte_array[i] ^ 0b1000_0000)/sizeof(UInt8)
+            let _fixStrDataMarkupSize    =  Int(byte_array[i] ^ 0b101_00000)/sizeof(UInt8.self)
+            let _fixArrayDataCount       =  Int(byte_array[i] ^ 0b1001_0000)/sizeof(UInt8.self)
+            let _fixMapCount             =  Int(byte_array[i] ^ 0b1000_0000)/sizeof(UInt8.self)
             
             
             let _8bitMarkupDataSize      =  byte_array.count - (i+1) >= 1 ?
@@ -434,9 +434,9 @@ public extension NSData {
             var continue_           = false
             var controlFlowState: control_flow = .None
             
-            let _fixStrDataMarkupSize    =  Int(byte_array[i] ^ 0b101_00000)/sizeof(UInt8)
-            let _fixArrayDataCount       =  Int(byte_array[i] ^ 0b1001_0000)/sizeof(UInt8)
-            let _fixMapCount             =  Int(byte_array[i] ^ 0b1000_0000)/sizeof(UInt8)
+            let _fixStrDataMarkupSize    =  Int(byte_array[i] ^ 0b101_00000)/sizeof(UInt8.self)
+            let _fixArrayDataCount       =  Int(byte_array[i] ^ 0b1001_0000)/sizeof(UInt8.self)
+            let _fixMapCount             =  Int(byte_array[i] ^ 0b1000_0000)/sizeof(UInt8.self)
             
             
             let _8bitMarkupDataSize      =  byte_array.count - (i+1) >= 1 ?
@@ -629,6 +629,7 @@ public extension NSData {
     #endif
 }
 
+#if os(OSX) || os(iOS) || os(tvOS) || os(watchOS)
 public extension NSData {
     
     public func unpackAsyncForEach(priority: dispatch_queue_priority_t, amount: Int? = nil, competitionHandler: (data: NSData, type: DataTypes, atIndex: Int) -> Void) {
@@ -735,7 +736,7 @@ public extension NSData {
         #endif
     }
 }
-
+#endif
 
 
 

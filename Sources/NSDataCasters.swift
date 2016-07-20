@@ -39,35 +39,35 @@ public extension NSData {
     ///Cast data into Int value according to its byte_array value
     var castToInt: Int {
         var int_value: Int = 0
-        self.getBytes(&int_value, length: sizeof(Int))
+        self.getBytes(&int_value, length: sizeof(Int.self))
         
         return int_value
     }
     
     var castToUInt: Int {
         var int_value: Int = 0
-        self.getBytes(&int_value, length: sizeof(Int))
+        self.getBytes(&int_value, length: sizeof(Int.self))
         return int_value
     }
     
     ///Cast data into Int8 value according to its byte_array value
     var castToInt8: Int8 {
         var int_value: Int8 = 0
-        self.getBytes(&int_value, length: sizeof(Int8))
+        self.getBytes(&int_value, length: sizeof(Int8.self))
         return int_value
     }
     
     ///Cast data into Double value according to its byte_array value
     var castToDouble: Double {
         var double_value: Double = 0
-        self.getBytes(&double_value, length: sizeof(Double))
+        self.getBytes(&double_value, length: sizeof(Double.self))
         return double_value
     }
     
     ///Cast data into Double value according to its byte_array value
     var castTFloat: Float {
         var double_value: Float = 0
-        self.getBytes(&double_value, length: sizeof(Float))
+        self.getBytes(&double_value, length: sizeof(Float.self))
         return double_value
     }
     
@@ -130,7 +130,7 @@ public extension NSData {
     
     public var castToUInt64: UInt64 {
         var int_value: UInt64 = 0
-        self.getBytes(&int_value, length: sizeof(UInt64))
+        self.getBytes(&int_value, length: sizeof(UInt64.self))
         return int_value
     }
     
