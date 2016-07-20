@@ -16,7 +16,9 @@ public typealias OptionSetType = OptionSet
 public typealias SignedIntegerType = SignedInteger
 public typealias UnsignedIntegerType = UnsignedInteger
 public typealias FloatingPointType = FloatingPoint
+#if os(Linux) || os(FreeBSD)
 public typealias dispatch_queue_priority_t = DispatchQoS
+#endif
 #endif
 
 extension Array
